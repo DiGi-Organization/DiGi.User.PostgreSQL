@@ -2,6 +2,7 @@ using DiGi.PostgreSQL.Classes;
 using DiGi.User.PostgreSQL.Interfaces;
 using Npgsql;
 using NpgsqlTypes;
+using System.Globalization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -201,7 +202,7 @@ namespace DiGi.User.PostgreSQL.Classes
                 {
                     while (await reader.ReadAsync(cancellationToken))
                     {
-                        insertedIds.Add(reader.GetInt32(0).ToString());
+                        insertedIds.Add(reader.GetInt32(0).ToString(CultureInfo.CurrentCulture));
                     }
                 }
                 while (await reader.NextResultAsync(cancellationToken));
@@ -731,7 +732,7 @@ namespace DiGi.User.PostgreSQL.Classes
                 return -1;
             }
 
-            return Convert.ToInt32(result);
+            return Convert.ToInt32(result, CultureInfo.CurrentCulture);
         }
 
         /// <summary>
